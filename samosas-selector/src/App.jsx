@@ -1,34 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [multiplier, setMultiplier] = useState(1);
 
+  const updateCount = () => setCount(count + multiplier);
+  const subtractCount = (num) => setCount(count-num);
+
+  const addMultiplier = (m) => {
+    if(m==2 && count>=10){
+      setMultiplier(multiplier * m);
+      subtractCount(10);
+    }
+    if(m==5 && count>=100){
+      setMultiplier(multiplier * m);
+      subtractCount(100);
+    }
+    if(m==10 && count>=1000){
+      setMultiplier(multiplier * m);
+      subtractCount(1000);
+    }
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App>">
+      <h1>Samosa Selector</h1>
+      <h2>Count: {count}</h2>
+      <img className = "samosa" src = "./samosa.png" onClick={updateCount}></img>
+
+      <div className = "container">
+        <div className = "upgrade">
+          <h3>Double Stuffed 👯‍♀️</h3>
+          <p>2x per click	</p>
+          <button onClick = {() => addMultiplier(2)}>10 samosas</button>
+        </div>
+
+        <div className = "upgrade">
+          <h3>Party Pack 🎉</h3>
+          <p>5x per click	</p>
+          <button onClick = {() => addMultiplier(5)} >100 samosas</button>
+        </div>        
+        
+        <div className = "upgrade">
+          <h3>Full Feast 👩🏽‍🍳</h3>
+          <p>10x per click	</p>
+          <button onClick = {() => addMultiplier(10)}>1000 samosas</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
